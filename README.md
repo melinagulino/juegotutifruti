@@ -12,3 +12,4 @@ el campo está vacío, no tiene puntuación. Sumar las puntuaciones de cada pala
 9. Ingresar las palabras en cada campo que comiencen  con la letra que salió al azar, las palabras en
 mayúscula o minúscula serán permitidas, pero si le falta una letra o están mal escritas, no se tomarán cómo válidas.
 10. Calcular el ganador del juego.
+11. Detectar si la letra aleatoria se repite, en ese caso, elegir otra.
