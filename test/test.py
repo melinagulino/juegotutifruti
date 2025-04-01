@@ -1,4 +1,5 @@
 from src.tutifruti import Tuttifruti
+from src.jugador import Jugador
 
 def test_obtener_letra_aleatoria():
     juego = Tuttifruti()
@@ -116,3 +117,14 @@ def test_calcular_ganador_del_juego():
     assert juego.puntajes["jugador2"] == 80
     assert juego.calcular_ganador() == "Jugador 1"
 
+
+def test_detectar_nombre_repetido():
+    nombre_jugador1 = Jugador("Melina")
+    nombre_jugador2 = Jugador("Melina")
+
+    assert nombre_jugador1.detectar_nombre_repetido(nombre_jugador2) is True
+
+    nombre_jugador1 = Jugador("Melina")
+    nombre_jugador2 = Jugador("Melina1")
+
+    assert nombre_jugador1.detectar_nombre_repetido(nombre_jugador2) is False
