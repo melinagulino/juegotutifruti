@@ -95,7 +95,7 @@ def test_calcular_ganador_del_juego():
 
     assert juego.puntajes["jugador1"] == 90
     assert juego.puntajes["jugador2"] == 90
-    assert juego.calcular_ganador() == "Empate"
+    assert juego.calcular_ganador() is None
 
     juego = Tuttifruti()
     juego.letra_actual = "M"
@@ -115,7 +115,10 @@ def test_calcular_ganador_del_juego():
 
     assert juego.puntajes["jugador1"] == 90
     assert juego.puntajes["jugador2"] == 80
-    assert juego.calcular_ganador() == "Jugador 1"
+
+    ganador = juego.calcular_ganador()
+    assert ganador is not None
+    assert ganador.nombre_jugador == "Melina"
 
 
 def test_detectar_nombre_repetido():
