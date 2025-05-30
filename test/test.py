@@ -1,5 +1,7 @@
 from src.tutifruti import Tuttifruti
 from src.jugador import Jugador
+from src.categorias import Categorias
+import pytest
 
 def test_obtener_letra_aleatoria():
     juego = Tuttifruti()
@@ -131,3 +133,11 @@ def test_detectar_nombre_repetido():
     nombre_jugador2 = Jugador("Melina1")
 
     assert nombre_jugador1.detectar_nombre_repetido(nombre_jugador2) is False
+
+def test_categorias_validas():
+    categorias = Categorias(["fruta", "animal", "color", "país", "nombre"])
+    assert categorias.obtener_categorias() == ["fruta", "animal", "color", "país", "nombre"]
+
+def test_categorias_invalidas():
+    with pytest.raises(ValueError):
+        Categorias(["fruta", "animal", "color"])

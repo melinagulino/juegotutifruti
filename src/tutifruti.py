@@ -2,22 +2,26 @@ import random
 import string
 from src.jugador import Jugador
 
-
 class Tuttifruti:
     def __init__(self, cantidad_jugadores=2):
         self.letras_usadas = set()
         self.letra_actual = self.obtener_letra_aleatoria()
         self.cantidad_jugadores = cantidad_jugadores
-        self.puntajes = {f"jugador{i + 1}": 0 for i
-                         in range(self.cantidad_jugadores)}
-        self.jugadas = {f"jugador{i + 1}": {} for i
-                        in range(self.cantidad_jugadores)}
-        self.jugadores = {f"jugador{i + 1}": Jugador(f"Jugador {i + 1}") for i
-                          in range(self.cantidad_jugadores)}
+        self.puntajes = {f"jugador{i + 1}": 0 for i in range(self.cantidad_jugadores)}
+        self.jugadas = {f"jugador{i + 1}": {} for i in range(self.cantidad_jugadores)}
+        self.jugadores = {f"jugador{i + 1}": Jugador(f"Jugador {i + 1}") for i in range(self.cantidad_jugadores)}
         self.valor_palabra_correcta = 10
         self.valor_palabra_repetida = 5
         self.valor_palabra_incorrecta = 0
         self.nombres_jugadores = {}
+
+    def agregar_jugador(self, nombre):
+        if nombre not in self.jugadores:
+            jugador = Jugador(nombre)
+            self.jugadores[nombre] = jugador
+            self.puntajes[nombre] = 0
+        else:
+            raise ValueError("El jugador ya existe.")
 
     def obtener_letra_aleatoria(self):
         letras_disponibles = set(string.ascii_uppercase) - self.letras_usadas
@@ -54,8 +58,7 @@ class Tuttifruti:
             for j in range(self.cantidad_jugadores):
                 if i != j:
                     palabras_oponente.update(
-                        {p.lower() for p in self.jugadas[f"jugador{j + 1}"].values()
-                         if p}
+                        {p.lower() for p in self.jugadas[f"jugador{j + 1}"].values() if p}
                     )
             for palabra_jugador in palabras_jugador:
                 puntaje_total += (self._calcular_puntaje_jugador
@@ -66,18 +69,11 @@ class Tuttifruti:
 
     def calcular_ganador(self):
         max_puntaje = max(self.puntajes.values())
-        ganadores = [jugador for jugador, puntaje in self.puntajes.items()
-                     if puntaje == max_puntaje]
+        ganadores = [jugador for jugador, puntaje in self.puntajes.items() if puntaje == max_puntaje]
         if len(ganadores) > 1:
             return None
         else:
             jugador_id = ganadores[0]
             nombre = self.nombres_jugadores.get(jugador_id, jugador_id).capitalize()
             return Jugador(nombre)
-
-
-
-
-
-
 
